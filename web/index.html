@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>WebEdit</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">W</span><span>WebEdit</span></div>
+    <nav id="breadcrumb" class="breadcrumb" aria-label="Klasör yolu"></nav>
+    <div class="toolbar">
+      <button id="up-btn" class="icon-button" title="Üst klasör" aria-label="Üst klasör">↑</button>
+      <button id="refresh-btn" class="icon-button" title="Yenile" aria-label="Yenile">↻</button>
+      <button id="new-file-btn" title="Yeni dosya oluştur">Yeni dosya</button>
+      <button id="new-dir-btn" title="Yeni klasör oluştur">Yeni klasör</button>
+      <button id="upload-btn" title="Dosya yükle">Yükle</button>
+      <input id="upload-input" type="file" multiple hidden>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="panel-heading"><span>DOSYALAR</span><span><span id="item-count" class="muted">0</span> <span id="selection-count" class="selection-count"></span></span></div>
+      <div class="list-tools">
+        <input id="search-input" type="search" placeholder="Klasörde ara…" autocomplete="off">
+      </div>
+      <div class="selection-tools" aria-label="Seçili öğe işlemleri">
+        <button id="rename-btn" disabled title="Yeniden adlandır (F2)">Ad değiştir</button>
+        <button id="copy-btn" disabled title="Kopyala (Ctrl+C)">Kopyala</button>
+        <button id="cut-btn" disabled title="Taşımak için kes (Ctrl+X)">Taşı</button>
+        <button id="paste-btn" disabled title="Yapıştır (Ctrl+V)">Yapıştır</button>
+        <button id="delete-btn" class="danger-button" disabled title="Sil (Delete)">Sil</button>
+      </div>
+      <div id="file-list" class="file-list" aria-label="Dosyalar"></div>
+      <div id="list-note" class="list-note">Tek tıkla seç · Çift tıkla aç · Sağ tıkla işlemler</div>
+    </aside>
+
+    <section class="main-panel">
+      <div class="document-bar">
+        <div class="document-title" id="document-title">Dosya açık değil</div>
+        <div class="document-actions">
+          <button id="download-btn" disabled>İndir</button>
+          <button id="save-btn" class="primary-button" disabled>Kaydet</button>
+        </div>
+      </div>
+      <div id="welcome" class="welcome">
+        <div class="welcome-symbol">⌘</div>
+        <h1>WebEdit</h1>
+        <p>Açmak için bir dosyaya çift tıkla.</p>
+        <p class="muted">Tek tıkla seçim yapabilir, sağ tık menüsünden dosya işlemlerine erişebilirsin.</p>
+      </div>
+      <div id="editor-wrap" class="editor-wrap" hidden>
+        <textarea id="editor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Dosya içeriği"></textarea>
+      </div>
+      <div id="preview-wrap" class="preview-wrap" hidden></div>
+      <div id="unsupported" class="unsupported" hidden>
+        <div class="unsupported-icon">▤</div>
+        <h2>Önizleme kullanılamıyor</h2>
+        <p>Bu dosya türü burada önizlenemiyor. Dosyayı indirebilirsin.</p>
+      </div>
+      <footer class="statusbar">
+        <span id="status-message">Hazır</span>
+        <span id="file-meta">Dosya yok</span>
+      </footer>
+    </section>
+  </main>
+
+  <div id="context-menu" class="context-menu" role="menu" hidden>
+    <button type="button" data-action="open" data-requires-selection> Aç </button>
+    <div class="menu-separator" data-requires-selection></div>
+    <button type="button" data-action="rename" data-requires-selection>Yeniden adlandır <kbd>F2</kbd></button>
+    <button type="button" data-action="copy" data-requires-selection>Kopyala <kbd>Ctrl+C</kbd></button>
+    <button type="button" data-action="cut" data-requires-selection>Taşı / Kes <kbd>Ctrl+X</kbd></button>
+    <button type="button" data-action="paste">Yapıştır <kbd>Ctrl+V</kbd></button>
+    <button type="button" data-action="download" data-requires-selection>İndir</button>
+    <div class="menu-separator" data-requires-selection></div>
+    <button type="button" data-action="delete" class="menu-danger" data-requires-selection>Sil <kbd>Delete</kbd></button>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

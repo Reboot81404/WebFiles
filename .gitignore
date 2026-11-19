@@ -1,0 +1,10 @@
+webfiles
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.log
+*.tmp
+
